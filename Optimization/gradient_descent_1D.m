@@ -39,5 +39,9 @@ function [xn,fn] = gradient_descent_1D(f, x0, h, hf, s)
 
         n = n + 1;
     end
-    disp("Total Iterations: " + n);
+    
+    fprintf("Iterations n:\t%d\n", n);
+    fprintf("Final Value xn:\t%f\n", xn);
+    fprintf("Function f(xn):\t%f\n",fn);
+    fprintf("Tolerance h:\t%f\n\n", h);
 end

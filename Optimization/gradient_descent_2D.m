@@ -44,8 +44,14 @@ function [vn,fn] = gradient_descent_2D(f, x0, y0, h, hf, s)
 
         n = n + 1;
     end
+
+    grad = [double(subs(xgrad, [x,y], vn)) double(subs(ygrad, [x,y], vn))];
+    vn = vn - h * (grad/norm(grad));
+    fn = double(subs(f, [x,y], p));
+    n = n + 1;
+    
     fprintf("Iterations n:\t%d\n", n);
     fprintf("Vector v(x,y):\t(%f,%f)\n", vn(1),vn(2));
     fprintf("Function f(v):\t%f\n",fn);
-    fprintf("Tolerance h:\t%f\n", h);
+    fprintf("Tolerance h:\t%f\n\n", h);
 end
