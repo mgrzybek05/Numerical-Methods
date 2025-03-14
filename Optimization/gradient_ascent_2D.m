@@ -1,5 +1,5 @@
-function [vn,fn] = gradient_descent_2D(f, x0, y0, h, hf, nmax, s)
-    % f: the objective function to be minimized
+function [vn,fn] = gradient_ascent_2D(f, x0, y0, h, hf, nmax, s)
+    % f: the objective function to be maximized
     % x0: initial x value
     % y0: initial y value
     % h: initial kick value
@@ -25,7 +25,7 @@ function [vn,fn] = gradient_descent_2D(f, x0, y0, h, hf, nmax, s)
     n = 0;
     while(hf < h && n + 1 < nmax)
         grad = [double(subs(xgrad, [x,y], vn)) double(subs(ygrad, [x,y], vn))];
-        p = vn - h * (grad/norm(grad));
+        p = vn + h * (grad/norm(grad));
         fp = double(subs(f, [x,y], p));
         
         %fprintf("n:\t%d\n", n);
@@ -33,7 +33,7 @@ function [vn,fn] = gradient_descent_2D(f, x0, y0, h, hf, nmax, s)
         %fprintf("fn:\t%f\n",fn);
         %fprintf("fp:\t%f\n\n",fp);
 
-        if fp < fn % if fp < fn then we must be closer to a minimum
+        if fp > fn % if fp > fn then we must be closer to a maximum
             vn = p;
             fn = fp;
         else % if fp > fn then we overstepped so reduce h
@@ -46,7 +46,7 @@ function [vn,fn] = gradient_descent_2D(f, x0, y0, h, hf, nmax, s)
     end
 
     grad = [double(subs(xgrad, [x,y], vn)) double(subs(ygrad, [x,y], vn))];
-    vn = vn - h * (grad/norm(grad));
+    vn = vn + h * (grad/norm(grad));
     fn = double(subs(f, [x,y], p));
     n = n + 1;
 
@@ -55,7 +55,7 @@ function [vn,fn] = gradient_descent_2D(f, x0, y0, h, hf, nmax, s)
     else
         fprintf("Iterations n:\t%d\n", n);
     end
-    
+
     fprintf("Vector v(x,y):\t(%f,%f)\n", vn(1),vn(2));
     fprintf("Function f(v):\t%f\n",fn);
     fprintf("Tolerance h:\t%f\n\n", h);

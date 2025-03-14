@@ -1,4 +1,4 @@
-function [xn,fn] = gradient_ascent_1D(f, x0, h, hf, s)
+function [xn,fn] = gradient_ascent_1D(f, x0, h, hf, nmax, s)
     % f: objective function apart of symbolic package
     % x0: initial independent value
     % h: initial shift value
@@ -16,7 +16,7 @@ function [xn,fn] = gradient_ascent_1D(f, x0, h, hf, s)
     g(x) = diff(f);
 
     n = 0;
-    while hf < h
+    while hf < h && n + 1 < nmax
         % generate the nth proposed value
         gx = double(g(xn));
         if gx < 0
@@ -39,7 +39,24 @@ function [xn,fn] = gradient_ascent_1D(f, x0, h, hf, s)
 
         n = n + 1;
     end
-    fprintf("Iterations n:\t%d\n", n);
+
+    % Final iteration to ensure tolerance is less than hf
+    gx = double(g(xn));
+    if gx < 0
+        fn = double(f(xn-h));
+        xn = xn - h;
+    elseif gx > 0
+        fn = double(f(xn+h));
+        xn = xn + h;
+    end
+    n = n + 1;
+
+    if n == nmax
+        fprintf("Max Iterations Reached n:\t%d\n",n);
+    else
+        fprintf("Iterations n:\t%d\n", n);
+    end
+    
     fprintf("Final Value xn:\t%f\n", xn);
     fprintf("Function f(xn):\t%f\n",fn);
     fprintf("Tolerance h:\t%f\n\n", h);
