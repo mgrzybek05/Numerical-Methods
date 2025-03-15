@@ -47,7 +47,7 @@ function [vn,fn] = gradient_descent_2D(f, x0, y0, h, hf, nmax, s)
 
     grad = [double(subs(xgrad, [x,y], vn)) double(subs(ygrad, [x,y], vn))];
     vn = vn - h * (grad/norm(grad));
-    fn = double(subs(f, [x,y], p));
+    fn = double(subs(f, [x,y], vn));
     n = n + 1;
 
     if n == nmax
