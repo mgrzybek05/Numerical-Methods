@@ -1,7 +1,7 @@
 function [vn, fn] = gradient_descent_ND(f, v, h, t, nmax, s)
     %{
     @params
-    f - objective vector function to be minimized
+    f - objective vector function to be maximized
     v - initial vector
     n - number of independent variables
     h - initial step
@@ -30,22 +30,22 @@ function [vn, fn] = gradient_descent_ND(f, v, h, t, nmax, s)
     while t < h && n + 1 < nmax
         % Evaluate gradient at vn
         gradient_vn = double(subs(gradient, vars, vn));
-        p = vn - h * (gradient_vn/norm(gradient_vn));
+        p = vn + h * (gradient_vn/norm(gradient_vn));
         fp = double(subs(f, vars, p));
         
-        % If fp < fn then we are closer to a minimum
-        if fp < fn
+        % If fp > fn then we are closer to a maximum
+        if fp > fn
             vn = p;
             fn = fp;
         else
-            % If fp > fn then we overstepped the minimum
+            % If fp < fn then we overstepped the maximum
             h = h/s;
         end
     n = n + 1;
     end
 
     gradient_vn = double(subs(gradient, vars, vn));
-    vn = vn - h * (gradient_vn/norm(gradient_vn));
+    vn = vn + h * (gradient_vn/norm(gradient_vn));
     fn = double(subs(f, vars, vn));
     n = n + 1;
 
