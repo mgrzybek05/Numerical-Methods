@@ -19,3 +19,13 @@ g = newton_int(p,q);
 fplot(g(x),[min(p)-1, max(p)+1])
 hold on
 scatter(p,q, "filled");
+
+
+fig3 = figure;
+figure(fig3);
+a = [1; 2; 3; 4];
+b = [9; 8; 7; 6];
+z = [12; 2; 6; -2];
+M = [a b];
+[s] = surface_int(M,z);
+surf(x,y, s)
