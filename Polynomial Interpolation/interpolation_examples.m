@@ -20,12 +20,15 @@ fplot(g(x),[min(p)-1, max(p)+1])
 hold on
 scatter(p,q, "filled");
 
-
 fig3 = figure;
+
 figure(fig3);
-a = [1; 2; 3; 4];
-b = [9; 8; 7; 6];
-z = [12; 2; 6; -2];
-M = [a b];
-[s] = surface_int(M,z);
-surf(x,y, s)
+Q = [1,1;
+     2,4;
+     3,9];
+syms x;
+h(x) = linear_int(Q);
+fplot(h(x))
+hold on
+scatter(Q(:,1),Q(:,2), "filled");
+h([1,2,3])

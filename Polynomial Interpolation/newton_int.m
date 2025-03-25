@@ -56,5 +56,5 @@ function [f] = newton_int(p,q)
     end
     
    
-    fprintf("The %dth degree polynomial interpolant is: %s\n.", n-1, char(f(x)));
+    fprintf("The %dth degree polynomial interpolant is: %s.\n", n-1, char(f(x)));
 end
