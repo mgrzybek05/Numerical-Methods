@@ -1,0 +1,21 @@
+syms f(t,y);
+f(t,y) = y;
+int = [0, 1];
+y0 = 1;
+h = 0.1;
+
+[T,Y] = euler_ivp(f, int, y0, h);
+
+fplot(exp(t), [0,1])
+hold on
+plot(T,Y, lineStyle="--")
+
+f(t,y) = t;
+int = [0, 1];
+y0 = 1;
+h = 0.1;
+
+[T, Y] = euler_ivp(f, int, y0, h);
+
+figure()
+plot(T, Y, [0,1] lineStyle="--")

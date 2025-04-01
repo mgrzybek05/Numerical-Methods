@@ -47,7 +47,7 @@ function [f] = newton_int(p,q)
     syms f(x)
     syms newprod(x);
     newprod(x) = 1;
-    f(x) = M(1,1);
+    f(x) = M(1,1); % Initializes f(x) to a0 = y0
     
     % Combine coefficients with products to generate function
     for i = 2 : n
